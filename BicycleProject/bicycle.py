@@ -99,15 +99,13 @@ class Item:
         return ("bicycle: " + self.__bicycle.toStr() + ", quantity: " + str(self.__quantity) + ", price: " + str(self.__pricePerUnit))
 
 class Shop:
-    def __init__(self, name, inventory = None, selledBikes = None, percentOverCost = 20):
+    def __init__(self, name, inventory = None, percentOverCost = 20):
         self.__name = name
         self.__inventory = inventory
-        self.__selledBikes = selledBikes
+        self.__selledBikes = []
         self.__percentOverCost = percentOverCost
 
     def sellABike(self, bike):
-        if self.__selledBikes == None:
-            self.__selledBikes = []
         self.__selledBikes.append(bike)
 
     def toStr(self):
@@ -227,7 +225,7 @@ def createOneBicycle(wheels, frames):
 def createInventory(wheels, frames):
     print("\n Create a inventory")
     inventory = []
-    for i in range(3):
+    for i in range(6):
         bicycle = createOneBicycle(wheels, frames)
         quantity = input(">Enter bicycle quantity:")
         item = Item(bicycle, int(quantity))
@@ -265,6 +263,7 @@ def customerBuyABicycle(customer, shop):
     num = input(">Choose bicycle to buy:")
     customer.buyABicycle(shop.inventory[int(num) - 1].bicycle, shop.inventory[int(num) - 1].pricePerUnit)
     shop.inventory[int(num) - 1].quantity = shop.inventory[int(num) - 1].quantity - 1
+    shop.sellABike(shop.inventory[int(num) - 1].bicycle)
 
 def mainProgram():
     wheels = createWheels()
@@ -294,8 +293,8 @@ def mainProgram():
 
     print("\n-------------")
     print("Customer:" + customerA.toStr() + ", bicycle: " + customerA.bicycle.model + ", price bicycle: " + str(customerA.bicyclePrice))
-    print("Customer:" + customerA.toStr() + ", bicycle: " + customerA.bicycle.model + ", price bicycle: " + str(customerA.bicyclePrice))
-    print("Customer:" + customerA.toStr() + ", bicycle: " + customerA.bicycle.model + ", price bicycle: " + str(customerA.bicyclePrice))
+    print("Customer:" + customerB.toStr() + ", bicycle: " + customerB.bicycle.model + ", price bicycle: " + str(customerB.bicyclePrice))
+    print("Customer:" + customerC.toStr() + ", bicycle: " + customerC.bicycle.model + ", price bicycle: " + str(customerC.bicyclePrice))
 
     print("\n-------------")
     shop.printInventory();
