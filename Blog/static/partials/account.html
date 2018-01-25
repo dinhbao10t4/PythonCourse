@@ -1,0 +1,50 @@
+<div class="login-page">
+<div class="page-header header-filter" style="background-image: url('static/images/bg7.jpg'); background-size: cover; background-position: top center;">
+	<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="card card-signup">
+				<form class="form">
+					<div class="header header-primary text-center">
+						<h4 class="card-title"><a href="javascript:void(0)" ng-click="vm.changeToLoginMode()">Sign in</a> / <a href="javascript:void(0)" ng-click="vm.changeToRegisterMode()">Sign up</a></h4>
+						<div class="social-line">
+							<a href="login-page.html" class="btn btn-just-icon btn-simple">
+							<i class="fa fa-facebook-square"></i>
+						</a>
+							<a href="login-page.html" class="btn btn-just-icon btn-simple">
+							<i class="fa fa-twitter"></i>
+						</a>
+							<a href="login-page.html" class="btn btn-just-icon btn-simple">
+							<i class="fa fa-google-plus"></i>
+						</a>
+						</div>
+					</div>
+					<p class="description text-center">Or Be Classical</p>
+					<p style="color:red">{{vm.errorMessage}}</p>
+					<div class="card-content">
+
+						<div class="input-group">
+							<span class="input-group-addon">
+							<i class="material-icons">face</i>
+						</span>
+							<input type="text" class="form-control" placeholder="User Name..." ng-model="vm.userName">
+						</div>
+
+						<div class="input-group">
+							<span class="input-group-addon">
+							<i class="material-icons">lock_outline</i>
+						</span>
+							<input type="password" placeholder="Password..." class="form-control" ng-model="vm.password" />
+						</div>
+					</div>
+					<div class="footer text-center">
+						<button type="submit" class="btn btn-primary" ng-click="vm.login()" ng-if="vm.mode == 'login'">Login</button>
+						<button type="submit" class="btn btn-primary" ng-click="vm.register()" ng-if="vm.mode == 'register'">Register</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

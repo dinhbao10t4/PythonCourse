@@ -1,0 +1,90 @@
+<div class="blog-posts">
+  <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example">
+            		<span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+        		</button>
+        <a class="navbar-brand" href="../presentation.html">Material Kit PRO</a>
+      </div>
+
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="blog-posts.html#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="material-icons">view_day</i> Sections
+							<b class="caret"></b>
+						</a>
+            <ul class="dropdown-menu dropdown-with-icons">
+              <li>
+                <a ui-sref="blog.list">
+									<i class="material-icons">list</i> Blogs
+								</a>
+              </li>
+              <li>
+                <a ui-sref="blog.new">
+									<i class="material-icons">assignment</i> Tạo mới Blog
+								</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)">
+									<i class="material-icons">account_circle</i> Đăng Xuất
+								</a>
+              </li>
+
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url('static/images/bg10.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <h2 class="title">A Place for Entrepreneurs to Share and Discover New Stories</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main main-raised">
+		<div class="container">
+
+			<div class="section">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 text-center">
+						<h1>Tạo Mới 1 Blog</h1>
+					</div>
+				</div>
+			</div>
+      <div>
+        <div class="row">
+          <div class="col-md-2">
+            <b>Tiêu Đề:</b>
+          </div>
+          <div class="col-md-10">
+            <input type="text" class="form-control" placeholder="Tiêu Đề..." ng-model="vm.blog.title" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <b>Nội Dung:</b>
+          </div>
+          <div class="col-md-10">
+            <textarea type="text" class="form-control" rows="5" placeholder="Nội Dung..." ng-model="vm.blog.content" />
+          </div>
+        </div>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary" ng-click="vm.createBlog()">Tạo Mới</button>
+        </div>
+      </div>
+		</div>
+    </div>
+</div>
