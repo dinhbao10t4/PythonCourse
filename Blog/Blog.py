@@ -2,7 +2,7 @@ from flask import Flask, send_file, request, jsonify
 import json
 from flask.ext.login import UserMixin,LoginManager,login_user,current_user,logout_user,login_required
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column,Integer,String,DateTime
+from sqlalchemy import Column,Integer,String,DateTime,func,desc
 from hashlib import md5
 import datetime
 
@@ -42,6 +42,19 @@ class Entry(db.Model):
         self.title=title
         self.content = content
         self.user_id = current_user.get_id()
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'datetime': self.datetime,
+            'user_id': self.user_id
+        }
+
+
+def getAllBlog():
+    return Entry.query.all()
 
 
 @login_manager.user_loader
@@ -88,7 +101,7 @@ def login():
 @app.route('/logout', methods=['GET'])
 def logout():
     logout_user()
-    return "Logout!"
+    return jsonify({'result': 'logout'})
 
 
 @app.route('/blog', methods=['POST'])
@@ -104,6 +117,82 @@ def createNewBlog():
     db.session.commit()
 
     return jsonify({'result': 'success'})
+
+
+@app.route('/get-one-blog', methods=['POST'])
+def getOneBlog():
+    print("GET ONE BLOG")
+    data = json.loads(request.data.decode())
+    blogId = data["id"]
+    print(data)
+    blog = Entry.query.filter_by(id=blogId).first()
+    print(blog)
+    print(type(blog))
+    return jsonify({
+            'id': blog.id,
+            'title': blog.title,
+            'content': blog.content,
+            'datetime': blog.datetime,
+            'user_id': blog.user_id
+        })
+
+
+
+@app.route('/delete-one-blog', methods=['POST'])
+def deleteOneBlog():
+    print("DELETE ONE BLOG")
+    data = json.loads(request.data.decode())
+    blogId = data["id"]
+    print(data)
+    blog = Entry.query.filter_by(id=blogId).first()
+    db.session.delete(blog)
+    db.session.commit()
+    return jsonify({'result': 'success'})
+
+
+@app.route('/update-blog', methods=['POST'])
+def updateOneBlog():
+    message = 'success'
+    data = json.loads(request.data.decode())
+    blogId = data["id"]
+    title = data["title"]
+    content = data["content"]
+
+    blog = Entry.query.filter_by(id=blogId).first()
+    blog.title = title
+    blog.content = content
+    db.session.commit()
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/your-blog', methods=['POST'])
+def getYourBlog():
+
+    print("GET YOUR BLOG")
+    data = json.loads(request.data.decode())
+    per_page = int(data["per_page"])
+    page = int(data["page"])
+    blogs = Entry.query.filter_by(user_id=current_user.get_id()).order_by(Entry.datetime.desc()).limit(per_page).offset((page - 1) * per_page).from_self().all()
+    countRow = db.session.query(func.count(Entry.id)).filter_by(user_id=current_user.get_id()).scalar()
+    print("Number of row: " + str(countRow))
+    print(type(blogs))
+    return jsonify({'result': [e.serialize() for e in blogs], 'totalRow': countRow})
+
+
+@app.route('/all-blog', methods=['POST'])
+def getAllBlog():
+
+    print("GET ALL BLOG")
+    data = json.loads(request.data.decode())
+    print(data)
+    per_page = int(data["per_page"])
+    page = int(data["page"])
+    blogs = Entry.query.order_by(Entry.datetime.desc()).limit(per_page).offset((page - 1) * per_page).from_self().all()
+    countRow = db.session.query(func.count(Entry.id)).scalar()
+    print("Number of row: " + str(countRow))
+    print(type(blogs))
+    return jsonify({'result': [e.serialize() for e in blogs], 'totalRow': countRow})
 
 
 if __name__ == '__main__':

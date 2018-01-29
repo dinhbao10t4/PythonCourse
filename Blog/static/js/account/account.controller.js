@@ -56,6 +56,11 @@
           'password': vm.password
         }
       }).then(function successCallback(response) {
+        vm.userName = '';
+        vm.password = '';
+        $state.go('account', null, {
+          reload : true
+        });
       });
     };
   }

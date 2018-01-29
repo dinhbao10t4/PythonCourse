@@ -60,7 +60,7 @@
 			<div class="section">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center">
-						<h1>Tạo Mới 1 Blog</h1>
+						<h1>Chi tiết 1 Blog</h1>
 					</div>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
             <b>Tiêu Đề:</b>
           </div>
           <div class="col-md-10">
-            <input type="text" class="form-control" placeholder="Tiêu Đề..." ng-model="vm.blog.title" />
+            <b>{{vm.blog.title}}</b>
           </div>
         </div>
         <div class="row">
@@ -78,13 +78,10 @@
             <b>Nội Dung:</b>
           </div>
           <div class="col-md-10">
-            <textarea type="text" class="form-control" rows="5" placeholder="Nội Dung..." ng-model="vm.blog.content" />
+            <span>{{vm.blog.content}}</span>
           </div>
         </div>
-        <div class="pull-right">
-          <button ng-hide="{{vm.isUpdate()}}" type="submit" class="btn btn-primary" ng-click="vm.createBlog()">Tạo Mới</button>
-          <button ng-show="{{vm.isUpdate()}}" type="submit" class="btn btn-primary" ng-click="vm.updateBlog()">Cập Nhật</button>
-        </div>
+        <br/><br/><br/>
       </div>
 		</div>
     </div>

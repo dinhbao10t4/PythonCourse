@@ -32,7 +32,24 @@
         },
         resolve: {
         }
-    }).state('blog.new', {
+    })
+    .state('blog.detail', {
+          parent : 'blog',
+          url : '/{id}/detail',
+          views : {
+            'content@' : {
+              templateUrl : '/static/partials/detail-blog.html',
+              controller : 'BlogDetailController',
+              controllerAs : 'vm'
+            }
+          }, params: {
+          }, resolve : {
+            blogId : function($stateParams) {
+              return $stateParams.id;
+            }
+          }
+        })
+    .state('blog.new', {
           parent : 'blog',
           url : '/new',
           views : {
@@ -45,6 +62,26 @@
           }, resolve : {
             entity : function() {
               return {
+                title : null,
+                content : null,
+              };
+            }
+          }
+        })
+    .state('blog.edit', {
+          parent : 'blog',
+          url : '/{id}/edit',
+          views : {
+            'content@' : {
+              templateUrl : '/static/partials/create-update-blog.html',
+              controller : 'BlogCreateUpdateController',
+              controllerAs : 'vm'
+            }
+          }, params: {
+          }, resolve : {
+            entity : function($stateParams) {
+              return {
+                id: $stateParams.id,
                 title : null,
                 content : null,
               };

@@ -31,7 +31,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)">
+								<a href="javascript:void(0)" ng-click="vm.logout()">
 									<i class="material-icons">account_circle</i> Đăng Xuất
 								</a>
 							</li>
@@ -61,138 +61,51 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center">
 						<ul class="nav nav-pills nav-pills-primary">
-						  <li class="active"><a href="blog-posts.html#pill1" data-toggle="tab">Tất Cả</a></li>
-						  <li><a href="blog-posts.html#pill2" data-toggle="tab">Của Bạn</a></li>
+						  <li class="active" ng-click="vm.enterAllBlog()"><a href="javascript:void(0)" data-toggle="tab">Tất Cả</a></li>
+						  <li ng-click="vm.enterYourBlog()"><a href="javascript:void(0)" data-toggle="tab">Của Bạn</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="section">
+			<div class="section" style="padding-top: 0;">
 				<div class="row">
-          <div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/bg5.jpg" />
-								</a>
-							</div>
+            <div class="col-md-4" ng-repeat="blog in vm.blogs track by blog.id">
+              <div class="card card-plain card-blog">
+                <div class="card-image">
+                  <img class="img img-raised" ng-src="static/images/{{vm.randomImage(blog.id)}}" />
+                </div>
 
-							<div class="card-content">
-								<h6 class="category text-info">Enterprise</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">Autodesk looks to future of 3D printing with Project Escher</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
+                <div class="card-content">
+                  <h6 class="category text-info">{{blog.datetime}}</h6>
+                  <h4 class="card-title">
+                    <a href="javascript:void(0)">{{blog.title}}</a>
+                  </h4>
+                  <p class="card-description">
+                    {{blog.content.substring(0, 250)}}
+                    <a ui-sref="blog.detail({id:blog.id})">&nbsp;Chi tiết&nbsp;</a>
+                    <a ng-show="vm.isEdit" ui-sref="blog.edit({id:blog.id})">&nbsp;Chỉnh Sửa&nbsp;</a>
+                    <a ng-show="vm.isEdit" ng-click="vm.deletePost(blog.id)" href="javascript:void(0)">&nbsp;Xóa&nbsp;</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+        			<label class="pull-left"> Hiển thị
+                <select class="form-control-search input-sm"  ng-options="size as size for size in vm.sizePerPages"
+                    ng-change="vm.transition()" ng-model="vm.entries">
+        			  </select> blogs
+        			</label>
+              <label class="pull-right">
+              <ul class="pagination" style="padding: 0px; margin: 0px;">
+                <li><a ng-click="vm.previousPage()" href="javascript:void(0)">&laquo;</a></li>
+                <li ng-repeat="page in vm.pageLst track by page" ng-class="page == vm.page ? 'active' : ''"><a ng-click="vm.changePage(page)" href="javascript:void(0)">{{page}}</a></li>
+                <li><a ng-click="vm.nextPage()" href="javascript:void(0)">&raquo;</a></li>
+              </ul>
+            </label>
+        		</div>
 
-					<div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/examples/blog5.jpg" />
-								</a>
-							</div>
-							<div class="card-content">
-								<h6 class="category text-success">
-									Startups
-								</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">Lyft launching cross-platform service this week</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/examples/blog6.jpg" />
-								</a>
-							</div>
-
-							<div class="card-content">
-								<h6 class="category text-danger">
-									<i class="material-icons">trending_up</i> Enterprise
-								</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">6 insights into the French Fashion landscape</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
-          <div ng-if="true" class="clearfix"></div>
-          <div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/bg5.jpg" />
-								</a>
-							</div>
-
-							<div class="card-content">
-								<h6 class="category text-info">Enterprise</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">Autodesk looks to future of 3D printing with Project Escher</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/examples/blog5.jpg" />
-								</a>
-							</div>
-							<div class="card-content">
-								<h6 class="category text-success">
-									Startups
-								</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">Lyft launching cross-platform service this week</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card card-plain card-blog">
-							<div class="card-image">
-								<a href="blog-posts.html#pablo">
-									<img class="img img-raised" src="static/images/examples/blog6.jpg" />
-								</a>
-							</div>
-
-							<div class="card-content">
-								<h6 class="category text-danger">
-									<i class="material-icons">trending_up</i> Enterprise
-								</h6>
-								<h4 class="card-title">
-									<a href="blog-posts.html#pablo">6 insights into the French Fashion landscape</a>
-								</h4>
-								<p class="card-description">
-									Like so many organizations these days, Autodesk is a company in transition. It was until recently a traditional boxed software company selling licenses.<a href="blog-posts.html#pablo"> Read More </a>
-								</p>
-							</div>
-						</div>
-					</div>
 				</div><!--end data-->
 			</div>
 		</div>
