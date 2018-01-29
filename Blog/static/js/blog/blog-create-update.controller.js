@@ -14,6 +14,7 @@
 
     function init(){
       if(vm.blog.id){
+        vm.titlePage = "Cập Nhật 1 Blog";
         $http({
           method: "POST",
           url: "http://127.0.0.1:5000/get-one-blog",
@@ -25,6 +26,8 @@
         }).then(function successCallback(response) {
           vm.blog = response.data;
         });
+      } else {
+        vm.titlePage = "Tạo Mới 1 Blog";
       }
     }
 

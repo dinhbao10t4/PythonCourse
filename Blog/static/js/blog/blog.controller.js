@@ -89,12 +89,14 @@
 
     vm.enterAllBlog = function(){
       vm.isAllBlog = true;
+      vm.page = 1;
       vm.getAllBlog();
     };
 
     vm.enterYourBlog = function(){
       vm.isAllBlog = false;
-      vm.enterYourBlog();
+      vm.page = 1;
+      vm.getYourBlog();
     }
 
     function getAllBlog(){
